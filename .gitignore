@@ -1,5 +1,8 @@
 #
 mp/venv/
+config.py
+*pyc
+fabfile.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
