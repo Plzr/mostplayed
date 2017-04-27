@@ -114,7 +114,6 @@ def process():
 
 
 
-
 	##############get the users top tracks
 	print "Getting the users top tracks"
 	tt_headers = {'Authorization':access_token}
