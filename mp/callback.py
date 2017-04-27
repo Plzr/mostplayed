@@ -84,7 +84,7 @@ def process():
 		# 	playlist_id = str(row[0])
 		# 	print playlist_id
 		print "no referrer was found so creating a new playlist"
-			#playlist_id = '3klEOHTrLICmHtRvWwwOXh'
+			
 	try: 
 		playlist_id
 	except NameError:
