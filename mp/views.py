@@ -30,7 +30,7 @@ def index():
 @app.route('/go')
 def go():
 	
-	callback_url = 'http://127.0.0.1:5000/callback'
+	callback_url = request.url_root + 'callback'
 	base_url = 'https://accounts.spotify.com/en/authorize?client_id=' + client_id + '&response_type=code&redirect_uri=' + callback_url + '&scope=user-read-private%20user-read-email%20playlist-read-private%20user-follow-read%20user-library-read%20user-top-read%20playlist-modify-private%20playlist-modify-public&state=34fFs29kd09'
 	return redirect(base_url,302)
 

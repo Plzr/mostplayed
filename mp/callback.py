@@ -9,6 +9,7 @@ from functions import db_insert,db_select
 import base64
 import os
 
+
 app.config.from_object('config')
 client_id = config.client_id
 
@@ -18,6 +19,8 @@ client_id = config.client_id
 @app.route('/callback')
 def process():
 	
+	#print request.url_root
+
 	if request.args.get('error'):
 		return request.args.get('error')
 	code = request.args.get('code')
@@ -28,7 +31,8 @@ def process():
 	print 'Getting the access token'
 	post_url = 'https://accounts.spotify.com/api/token'
 	grant_type = 'authorization_code'
-	callback_url = 'http://127.0.0.1:5000/callback'
+	#callback_url = 'http://127.0.0.1:5000/callback'
+	callback_url = request.url_root + 'callback'
 	authorization = config.authorization
 
 	post = {'redirect_uri':callback_url,'code':code,'grant_type':grant_type}
