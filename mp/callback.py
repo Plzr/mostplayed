@@ -4,7 +4,6 @@ import sys
 import config
 import requests
 import json
-import db
 from datetime import datetime
 from functions import db_insert,db_select
 import base64
