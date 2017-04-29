@@ -132,10 +132,17 @@ def process():
 
 
 	##############get the users top tracks
+
+	if 'time_range' in session:
+		time_range = session['time_range']
+	else:
+		time_range = 'short_term'
+
+
 	print "Getting the users top tracks"
 	tt_headers = {'Authorization':access_token}
 	tt_post = {}
-	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term'
+	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=' + time_range
 	r_tt = requests.get(tt_url,headers=tt_headers)
 	tt_json = r_tt.json()
 	print str(r_tt.status_code) + ' is the status code for the users top tracks'
