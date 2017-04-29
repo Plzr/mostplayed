@@ -13,21 +13,25 @@ import os
 app.config.from_object('config')
 client_id = config.client_id
 
+def create_playlist(access_token,user_id):
+		cp_headers = {'Authorization':access_token,'Content-Type': 'application/x-www-form-urlencoded'}
+		cp_post = {'name': 'Your Most Played Tracks','public':'true','collaborative':'false','description':'created at https://mp.soundshelter.net'}
+		cp_url = 'https://api.spotify.com/v1/users/' + user_id + '/playlists'
+		r_cp = requests.post(cp_url,headers=cp_headers,data=json.dumps(cp_post))
+		
+		print r_cp.status_code
 
+		if str(r_cp.status_code) !='201':
+			print r_cp.json()
 
+			return "It didnt work yo - try again"
+		r_cp_json = r_cp.json()
+		playlist_id = r_cp_json['id']
+		owner_id = r_cp_json['owner']['id']
+		full_pl = base64.b64encode(owner_id + '/' + playlist_id)
+		return owner_id,full_pl,playlist_id
 
-@app.route('/callback')
-def process():
-	
-	#print request.url_root
-
-	if request.args.get('error'):
-		return request.args.get('error')
-	code = request.args.get('code')
-	state = request.args.get('state')
-
-	
-	#################get the access token
+def get_access_token(code):
 	print 'Getting the access token'
 	post_url = 'https://accounts.spotify.com/api/token'
 	grant_type = 'authorization_code'
@@ -42,6 +46,21 @@ def process():
 	r = requests.post(post_url, headers=headers,data=post)
 	auth_json = json.loads(r.text)
 	access_token = 'Bearer ' + auth_json['access_token']
+	return access_token
+
+
+@app.route('/callback')
+def process():
+	
+	#print request.url_root
+
+	if request.args.get('error'):
+		return request.args.get('error')
+	code = request.args.get('code')
+	state = request.args.get('state')
+
+	
+	access_token = get_access_token(code)
 
 	
 	################get my details - create the user if needed
@@ -78,6 +97,10 @@ def process():
 	if 'ref_code' in session:
 		playlist_id = session['ref_code']
 		print "Found a session: " + playlist_id
+		owner_id = user_id
+		full_pl_exp = session['ref_code'].split('/')
+		playlist_id =  full_pl_exp[1]
+		owner_id = full_pl_exp[0]
 	#no referrer to check to see if they have an existing playlist
 	else:
 		# check_pl = db_select("SELECT playlist_id FROM participation WHERE user_id=%s",(user_id,))
@@ -87,31 +110,22 @@ def process():
 		# 	playlist_id = str(row[0])
 		# 	print playlist_id
 		print "no referrer was found so creating a new playlist"
-			
-	try: 
-		playlist_id
-	except NameError:
 		print "no playlist found"
 		#return "no playlist found"
 
 		#now create a collaborative playlist
-		cp_headers = tt_headers = {'Authorization':access_token,'Content-Type': 'application/x-www-form-urlencoded'}
-		cp_post = {'name': user_id + ' Most Played Bangers','public':'false','collaborative':'true'}
-		cp_url = 'https://api.spotify.com/v1/users/' + user_id + '/playlists'
-		r_cp = requests.post(cp_url,headers=cp_headers,data=json.dumps(cp_post))
+		create = create_playlist(access_token,user_id)
+
+		owner_id = create[0]
+		full_pl = create[1]
+		playlist_id = create[2]
+
 		
-		print r_cp.status_code
-
-		if str(r_cp.status_code) !='201':
-			print r_cp.json()
-
-			return "It didnt work yo - try again"
-
-		r_cp_json = r_cp.json()
-		playlist_id = r_cp_json['id']
+			
+	
 	
 
-
+	full_pl = base64.b64encode(owner_id + '/' + playlist_id)
 	the_key = base64.b64encode(user_id + playlist_id)
 	db_insert("INSERT INTO participation (user_id,playlist_id,the_key) VALUES (%s,%s,%s) ON DUPLICATE KEY UPDATE the_key=VALUES(the_key)",(user_id,playlist_id,the_key))
 
@@ -121,42 +135,58 @@ def process():
 	print "Getting the users top tracks"
 	tt_headers = {'Authorization':access_token}
 	tt_post = {}
-	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term'
+	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term'
 	r_tt = requests.get(tt_url,headers=tt_headers)
 	tt_json = r_tt.json()
-	#print tt_json
+	print str(r_tt.status_code) + ' is the status code for the users top tracks'
+	print tt_json
 	
 	##iterate through all the tracks and get them into a list
 	tracks_list = []
 	tracks = []
-	for x in xrange(0,tt_json['limit']):
+	image_urls = []
+	
+	try:
+		for x in xrange(0,tt_json['limit']):
 
-		track_name = tt_json['items'][x]['name']
-		track_id = tt_json['items'][x]['id']
-		track_uri = tt_json['items'][x]['uri']
-		track_popularity = tt_json['items'][x]['popularity']
-		#print track_name
-		#print track_uri
+			track_name = tt_json['items'][x]['name']
+			track_id = tt_json['items'][x]['id']
+			track_uri = tt_json['items'][x]['uri']
+			track_popularity = tt_json['items'][x]['popularity']
+			#if tt_json['items'][x]['images'][3]['url']:
+			#	track_image = tt_json['items'][x]['images'][3]['url']
+			#else:
+			track_image = tt_json['items'][x]['album']['images'][1]['url']
+			
+			print track_image
+			print track_name
+			print track_uri
 
-		tracks_list.append(track_uri.encode("utf-8"))
-		tracks.append(track_name.encode("utf-8"))
+			tracks_list.append(track_uri.encode("utf-8"))
+			tracks.append(track_name.encode("utf-8"))
+			image_urls.append(track_image)
+	
+	except Exception as e:
+		print e
+		print "No tracks to add!"
 
 	
 	##this is for the playlist
-	print "Now adding to playlist"
+	print "Now adding to playlist " + playlist_id + " by " + owner_id
 	
-	pl_url = 'https://api.spotify.com/v1/users/' + user_id + '/playlists/' + playlist_id + '/tracks'
-	pl_public_url = 'https://open.spotify.com/user/' + user_id + '/playlist/' + playlist_id
+	pl_url = 'https://api.spotify.com/v1/users/' + owner_id + '/playlists/' + playlist_id + '/tracks'
+	pl_public_url = 'https://open.spotify.com/user/' + owner_id + '/playlist/' + playlist_id
 	add_headers = {'Authorization':access_token,'Content-Type':'application/json'}
 	add_post = {'uris':tracks_list}
 	#print add_post
 
 	r_add = requests.put(pl_url,headers=add_headers,data=json.dumps(add_post))
+	print r_add
 	print r_add.json()
 
 	if 'ref_code' in session:
 		session.pop('ref_code', None)
 
 	
-	return render_template('done.html',pl_url=pl_public_url,tracks=tracks,ref_code=playlist_id)
+	return render_template('done.html',pl_url=pl_public_url,tracks=tracks,ref_code=full_pl,images=image_urls)
 

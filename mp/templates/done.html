@@ -11,9 +11,10 @@
 <div class="container">
     <h1>Done!</h1>
     <h3>Listen to the playlist <a href="{{pl_url}}" target="_blank">here</a></h3>
-    <h3>Give this code to your friends http://mp.soundshelter.net/?ref_code={{ref_code}}</h3>
-    {% for track in tracks %}
-    	{{track}}<br />
+    <!-- <h3>Give this code to your friends http://mp.soundshelter.net/?ref_code={{ref_code}}</h3> -->
+    We added the following tracks<br /><br />
+    {% for image in images %}
+    	<img src="{{image}}" heigh=100 width=100 />
     {% endfor %}
     <h4><a href="/" target="_self">Go home</a></h4>
 </div>

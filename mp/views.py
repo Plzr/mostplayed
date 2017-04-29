@@ -22,7 +22,7 @@ client_id = config.client_id
 @app.route('/index')
 def index():
 	if request.args.get('ref_code'):
-		ref_code = request.args.get('ref_code')
+		ref_code = base64.b64decode(request.args.get('ref_code'))
 		session['ref_code'] = ref_code
 		print session['ref_code']
 	return render_template('index.html')
