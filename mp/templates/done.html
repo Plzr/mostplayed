@@ -10,7 +10,8 @@
 {% block content %}
 <div class="container">
     <h1>Done!</h1>
-    <h3>Listen to the playlist <a href="{{pl_url}}" target="_blank">here</a></h3>
+    <a role="button" class="btn btn-danger" href="{{pl_url}}" target="_blank" style=""><h4>Listen To Your Playlist</h4></a>
+    <br /><br />
     <!-- <h3>Give this code to your friends http://mp.soundshelter.net/?ref_code={{ref_code}}</h3> -->
     We added the following tracks<br /><br />
     {% for image in images %}
