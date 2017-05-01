@@ -15,7 +15,7 @@ client_id = config.client_id
 
 def create_playlist(access_token,user_id, title):
 		cp_headers = {'Authorization':access_token,'Content-Type': 'application/x-www-form-urlencoded'}
-		cp_post = {'name': title,'public':'true','collaborative':'false','description':'created at https://mp.soundshelter.net'}
+		cp_post = {'name': title,'public':'true','collaborative':'false','description':'created at http://mp.soundshelter.net'}
 		cp_url = 'https://api.spotify.com/v1/users/' + user_id + '/playlists'
 		r_cp = requests.post(cp_url,headers=cp_headers,data=json.dumps(cp_post))
 		
@@ -207,7 +207,7 @@ def process():
 
 			#add to DB
 			try:
-				db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
+				#db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
 				print "Inserted track " + track_id
 			except Exception as e:
 				print "Failed to insert track " + track_id

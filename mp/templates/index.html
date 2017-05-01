@@ -32,15 +32,17 @@
 					</h4>
 					<br />
 					<h3>How many tracks do you want?</h3>
-					<input type="range" min="5" max="50" value="25" name="num_tracks" step="5" onchange="showValue(this.value)" />
-					
-					<span id="range">25</span>
-					<script type="text/javascript">
-					function showValue(newValue)
-					{
-						document.getElementById("range").innerHTML=newValue;
-					}
-					</script>
+					<h4>
+						<input type="range" min="5" max="50" value="30" name="num_tracks" step="5" onchange="showValue(this.value)" />
+						
+						<span id="range">30</span>
+					</h4>
+						<script type="text/javascript">
+						function showValue(newValue)
+						{
+							document.getElementById("range").innerHTML=newValue;
+						}
+						</script>
 		    		<br />
 		    	<br />
 		    	<div class="">
