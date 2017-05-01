@@ -12,7 +12,7 @@
 	
 		<div class="">
 	    	<h1>Spotify Bangers Playlist Generator</h1>
-	   		<h2>Get a playlist of your most played tracks on Spotify</h2>
+	   		<h2>Get a playlist of your most listened to tracks on Spotify</h2>
 	    </div>
 		<div class="">
 			<br />
@@ -30,7 +30,18 @@
 							<input type="radio" name="time_range" id="inlineCheckbox3" value="long_term"> All Time
 						
 					</h4>
-		    	
+					<br />
+					<h3>How many tracks do you want?</h3>
+					<input type="range" min="5" max="50" value="25" name="num_tracks" step="5" onchange="showValue(this.value)" />
+					
+					<span id="range">25</span>
+					<script type="text/javascript">
+					function showValue(newValue)
+					{
+						document.getElementById("range").innerHTML=newValue;
+					}
+					</script>
+		    		<br />
 		    	<br />
 		    	<div class="">
 		      		<button type="submit" class="btn btn-danger" style=""><h4>Create My Playlist</h4></button>
