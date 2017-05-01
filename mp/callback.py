@@ -13,9 +13,9 @@ import os
 app.config.from_object('config')
 client_id = config.client_id
 
-def create_playlist(access_token,user_id):
+def create_playlist(access_token,user_id, title):
 		cp_headers = {'Authorization':access_token,'Content-Type': 'application/x-www-form-urlencoded'}
-		cp_post = {'name': 'Your Most Played Tracks','public':'true','collaborative':'false','description':'created at https://mp.soundshelter.net'}
+		cp_post = {'name': title,'public':'true','collaborative':'false','description':'created at https://mp.soundshelter.net'}
 		cp_url = 'https://api.spotify.com/v1/users/' + user_id + '/playlists'
 		r_cp = requests.post(cp_url,headers=cp_headers,data=json.dumps(cp_post))
 		
@@ -114,7 +114,21 @@ def process():
 		#return "no playlist found"
 
 		#now create a collaborative playlist
-		create = create_playlist(access_token,user_id)
+		##############get the users top tracks
+
+		if 'time_range' in session:
+			time_range = session['time_range']
+		else:
+			time_range = 'short_term'
+
+		if time_range =='short_term':
+			time_range_title = 'Last Few Weeks'
+		elif time_range=='medium_term':
+			time_range_title = 'Last Few Months'
+		else:
+			time_range_title = 'All Time'
+		title = 'Your Most Played Tracks: ' + time_range_title
+		create = create_playlist(access_token,user_id,title)
 
 		owner_id = create[0]
 		full_pl = create[1]
@@ -131,12 +145,7 @@ def process():
 
 
 
-	##############get the users top tracks
-
-	if 'time_range' in session:
-		time_range = session['time_range']
-	else:
-		time_range = 'short_term'
+	
 
 
 	print "Getting the users top tracks"
@@ -172,6 +181,14 @@ def process():
 			tracks_list.append(track_uri.encode("utf-8"))
 			tracks.append(track_name.encode("utf-8"))
 			image_urls.append(track_image)
+			the_key = base64.b64encode(user_id + track_id)
+
+			#add to DB
+			try:
+				db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
+				print "Inserted track " + track_id
+			except Exception as e:
+				print "Failed to insert track " + track_id
 	
 	except Exception as e:
 		print e
