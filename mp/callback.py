@@ -207,7 +207,7 @@ def process():
 
 			#add to DB
 			try:
-				db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
+				#db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
 				print "Inserted track " + track_id
 			except Exception as e:
 				print "Failed to insert track " + track_id
@@ -229,6 +229,16 @@ def process():
 	r_add = requests.put(pl_url,headers=add_headers,data=json.dumps(add_post))
 	print r_add
 	print r_add.json()
+
+
+	#####finally follow the playlist
+	follow_url = '	https://api.spotify.com/v1/users/' + owner_id + '/playlists/' + playlist_id + '/followers'
+	follow_headers = {'Authorization':access_token,'Content-Type':'application/json'}
+	follow_post = {'public': 'true'}
+	r_follow = requests.put(pl_url,headers=add_headers,data=json.dumps(add_post))
+	print r_follow
+	print r_follow.json()
+
 
 	if 'ref_code' in session:
 		session.pop('ref_code', None)
