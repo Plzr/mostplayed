@@ -122,26 +122,48 @@ def process():
 			time_range = 'short_term'
 
 		if time_range =='short_term':
-			time_range_title = 'Last Few Weeks'
+			time_range_title = 'The Last Few Weeks'
 		elif time_range=='medium_term':
-			time_range_title = 'Last Few Months'
+			time_range_title = 'The Last Few Months'
 		else:
 			time_range_title = 'All Time'
-		title = 'Your Most Played Tracks: ' + time_range_title
-		create = create_playlist(access_token,user_id,title)
+		title = 'Your Most Played Tracks Of ' + time_range_title
 
-		owner_id = create[0]
-		full_pl = create[1]
-		playlist_id = create[2]
+		#check that there isn't a playlist already for this user on this time range
+		check_for_pl = db_select("SELECT user_id,playlist_id FROM participation WHERE user_id=%s AND time_range=%s LIMIT 1",(user_id,time_range))
+		if check_for_pl.rowcount==0:
+			print "there were no results so we need to create a playlist"
+			create = create_playlist(access_token,user_id,title)
+
+			owner_id = create[0]
+			full_pl = create[1]
+			playlist_id = create[2]
+
+		else:
+			print check_for_pl.rowcount
+			print "There was a playlist"
+
+			#get pl lists
+			for row in check_for_pl:
+				owner_id = row[0]
+				playlist_id = row[1]
+
+			full_pl = base64.b64encode(owner_id + '/' + playlist_id)
+			
+			print full_pl
+			print "pl got"
 
 		
 			
+	
+
+
 	
 	
 
 	full_pl = base64.b64encode(owner_id + '/' + playlist_id)
 	the_key = base64.b64encode(user_id + playlist_id)
-	db_insert("INSERT INTO participation (user_id,playlist_id,the_key) VALUES (%s,%s,%s) ON DUPLICATE KEY UPDATE the_key=VALUES(the_key)",(user_id,playlist_id,the_key))
+	db_insert("INSERT INTO participation (user_id,playlist_id,the_key,time_range) VALUES (%s,%s,%s,%s) ON DUPLICATE KEY UPDATE the_key=VALUES(the_key)",(user_id,playlist_id,the_key,time_range))
 
 
 
@@ -151,7 +173,7 @@ def process():
 	print "Getting the users top tracks"
 	tt_headers = {'Authorization':access_token}
 	tt_post = {}
-	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=' + time_range
+	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=5&time_range=' + time_range
 	r_tt = requests.get(tt_url,headers=tt_headers)
 	tt_json = r_tt.json()
 	print str(r_tt.status_code) + ' is the status code for the users top tracks'

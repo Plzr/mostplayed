@@ -20,12 +20,13 @@
     {% endblock %}
 </head>
 <body>
-    <div id="content">
+    <div class="background-image" style="background-image: url('https://www.soundshelter.net/images/4583945395_a427b3db70_o.jpg');"></div>
+    <div class="container">
     	<div class="col-md-3"></div>
-    	<div class="col-md-6">
+    	<div class="col-md-6 main_area">
     		{% block content %}{% endblock %}
     	</div>
-    	<div class="col-md-3"></div>
+    	
     </div>
     <div id="footer">
         {% block footer %}
