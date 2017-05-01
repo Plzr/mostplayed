@@ -207,7 +207,7 @@ def process():
 
 			#add to DB
 			try:
-				#db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
+				db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
 				print "Inserted track " + track_id
 			except Exception as e:
 				print "Failed to insert track " + track_id
