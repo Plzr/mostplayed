@@ -1,5 +1,4 @@
-# mostplayed
-I wanted a way to keep track of my favourite tracks across multiple playlists.
+A web app that builds playlists from your most listened to tracks on Spotify.
 <br /><br />
 Uses some basic Python/Flask, MySQL and the Spotify API
 <br /><br />
