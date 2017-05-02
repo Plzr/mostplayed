@@ -1,10 +1,10 @@
 # mostplayed
 I wanted a way to keep track of my favourite tracks across multiple playlists.
-sdf
+
 Uses some basic Python/Flask, MySQL and the Spotify API
-~adffs
+
 Endpoints used:
-~
+
 GET: https://accounts.spotify.com/en/authorize (Authorise the user)
 POST: https://accounts.spotify.com/api/token (Get the authentication token)
 POST: https://api.spotify.com/v1/users/{user_id}/playlists (Create a playlist)
