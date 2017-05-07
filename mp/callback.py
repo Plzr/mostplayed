@@ -122,17 +122,19 @@ def process():
 			time_range = 'short_term'
 
 		if time_range =='short_term':
-			time_range_title = 'The Last Few Weeks'
+			time_range_title = 'This Month'
 		elif time_range=='medium_term':
-			time_range_title = 'The Last Few Months'
+			time_range_title = 'Last Few Months'
 		else:
-			time_range_title = 'The Last Year And Beyond'
-		title = 'Your Most Played Tracks Of ' + time_range_title
+			time_range_title = 'This Year and Beyond'
+		title = 'MostPlayed: ' + time_range_title
 
 		#check that there isn't a playlist already for this user on this time range
 		check_for_pl = db_select("SELECT user_id,playlist_id FROM participation WHERE user_id=%s AND time_range=%s LIMIT 1",(user_id,time_range))
 		if check_for_pl.rowcount==0:
 			print "there were no results so we need to create a playlist"
+
+			######create playlist
 			create = create_playlist(access_token,user_id,title)
 
 			owner_id = create[0]
@@ -153,6 +155,11 @@ def process():
 			print full_pl
 			print "pl got"
 
+			#update the name of the playlist if it exists
+			up_headers = {'Authorization':access_token,'Content-Type':'application/json'}
+			up_post = {'name':title}
+			up_url = 'https://api.spotify.com/v1/users/' + owner_id + '/playlists/' + playlist_id
+			r_up = requests.put(up_url,headers=up_headers,data=json.dumps(up_post))
 		
 			
 	
@@ -207,7 +214,7 @@ def process():
 
 			#add to DB
 			try:
-				db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
+				#db_insert("INSERT INTO tracks (user_id,track_id,playlist_id,date,the_key,image_url) VALUES (%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE date=values(date)",(user_id,track_id,playlist_id,now,the_key,track_image))
 				print "Inserted track " + track_id
 			except Exception as e:
 				print "Failed to insert track " + track_id
