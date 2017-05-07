@@ -127,7 +127,7 @@ def process():
 			time_range_title = 'Last Few Months'
 		else:
 			time_range_title = 'This Year and Beyond'
-		title = 'MostPlayed: ' + time_range_title
+		title = 'Most Played: ' + time_range_title
 
 		#check that there isn't a playlist already for this user on this time range
 		check_for_pl = db_select("SELECT user_id,playlist_id FROM participation WHERE user_id=%s AND time_range=%s LIMIT 1",(user_id,time_range))
