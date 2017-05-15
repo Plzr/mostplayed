@@ -46,6 +46,7 @@ def get_access_token(code):
 	r = requests.post(post_url, headers=headers,data=post)
 	auth_json = json.loads(r.text)
 	access_token = 'Bearer ' + auth_json['access_token']
+	print access_token
 	return access_token
 
 
@@ -84,7 +85,7 @@ def process():
 	the_key = base64.b64encode(user_id + referall_code)
 	
 	try:
-		db_insert("INSERT INTO user (user_id,email,join_date,last_visit,source,ref_code,the_key) VALUES (%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE last_visit=VALUES(last_visit);",(user_id,email,now,now,'new',referall_code,the_key))
+		db_insert("INSERT INTO user (user_id,email,join_date,last_visit,source,ref_code,the_key) VALUES (%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE last_visit=VALUES(last_visit), the_key=VALUES(the_key);",(user_id,email,now,now,'new',referall_code,access_token))
 		print "Inserted user"
 	except Exception as e:
 		print e
