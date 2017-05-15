@@ -110,7 +110,7 @@ def process():
 		# 	playlist_id = str(row[0])
 		# 	print playlist_id
 		print "no referrer was found so creating a new playlist"
-		print "no playlist found"
+		print "no playlist found in the session"
 		#return "no playlist found"
 
 		#now create a collaborative playlist
@@ -156,11 +156,15 @@ def process():
 			print "pl got"
 
 			#update the name of the playlist if it exists
-			up_headers = {'Authorization':access_token,'Content-Type':'application/json'}
+			up_headers = {'Authorization':access_token,'Accept':'application/json','Content-Type':'application/json'}
 			up_post = {'name':title}
 			up_url = 'https://api.spotify.com/v1/users/' + owner_id + '/playlists/' + playlist_id
 			r_up = requests.put(up_url,headers=up_headers,data=json.dumps(up_post))
-		
+			print up_url
+			print up_headers
+			print r_up
+			print str(r_up.status_code) + ' is the update for the playlist name'
+			
 			
 	
 
@@ -184,7 +188,7 @@ def process():
 	r_tt = requests.get(tt_url,headers=tt_headers)
 	tt_json = r_tt.json()
 	print str(r_tt.status_code) + ' is the status code for the users top tracks'
-	print tt_json
+	#print tt_json
 	
 	##iterate through all the tracks and get them into a list
 	tracks_list = []
@@ -203,9 +207,10 @@ def process():
 			#else:
 			track_image = tt_json['items'][x]['album']['images'][1]['url']
 			
-			print track_image
-			print track_name
-			print track_uri
+			# print track_image
+			# print track_name
+			# print track_uri
+			# print track_popularity
 
 			tracks_list.append(track_uri.encode("utf-8"))
 			tracks.append(track_name.encode("utf-8"))
@@ -239,12 +244,13 @@ def process():
 
 
 	#####finally follow the playlist
-	follow_url = '	https://api.spotify.com/v1/users/' + owner_id + '/playlists/' + playlist_id + '/followers'
-	follow_headers = {'Authorization':access_token,'Content-Type':'application/json'}
-	follow_post = {'public': 'true'}
-	r_follow = requests.put(pl_url,headers=add_headers,data=json.dumps(add_post))
-	print r_follow
-	print r_follow.json()
+	# follow_url = '	https://api.spotify.com/v1/users/' + owner_id + '/playlists/' + playlist_id + '/followers'
+	# print follow_url + ' is going to be followed'
+	# follow_headers = {'Authorization':access_token,'Content-Type':'application/json'}
+	# follow_post = {'public': 'true'}
+	# r_follow = requests.put(pl_url,headers=add_headers,data=json.dumps(add_post))
+	#print r_follow
+	#print r_follow.json()
 
 
 	if 'ref_code' in session:
