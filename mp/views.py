@@ -29,6 +29,7 @@ def index():
 
 @app.route('/go',methods=['GET', 'POST'])
 def go():
+	session['num_tracks'] = '25'
 	if request.args.get('time_range'):
 		session['time_range'] = request.args.get('time_range')
 	else:
