@@ -14,6 +14,6 @@ if BASE_DIR not in sys.path:
     sys.path.insert(0,BASE_DIR)
 
 from mp import app as application
-#application.secret_key = str(base64.b64encode(os.urandom(24)))
-application.secret_key = 'this is a random string'
+application.secret_key = str(base64.b64encode(os.urandom(24)))
+#application.secret_key = 'this is a random string'
 
