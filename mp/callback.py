@@ -179,13 +179,17 @@ def process():
 
 
 
-	
+	#get the number of tracks the user wants to add
+	if session['num_tracks']:
+		num_tracks = session['num_tracks']
+	else:
+		num_tracks = '25'
 
 
 	print "Getting the users top tracks"
 	tt_headers = {'Authorization':access_token}
 	tt_post = {}
-	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=' + session['num_tracks'] + '&time_range=' + time_range
+	tt_url = 'https://api.spotify.com/v1/me/top/tracks?limit=' + num_tracks + '&time_range=' + time_range
 	r_tt = requests.get(tt_url,headers=tt_headers)
 	tt_json = r_tt.json()
 	print str(r_tt.status_code) + ' is the status code for the users top tracks'
