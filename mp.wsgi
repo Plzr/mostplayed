@@ -2,13 +2,15 @@
 #import random
 import base64
 import os
+import sys
+import logging
 
 BASE_DIR = os.path.join(os.path.dirname(__file__)) #gets this current directory
 
 activate_this = '/var/www/mostplayed/mp/venv/bin/activate_this.py'
 execfile(activate_this, dict(__file__=activate_this))
-import sys
-import logging
+
+
 logging.basicConfig(stream=sys.stderr)
 
 
