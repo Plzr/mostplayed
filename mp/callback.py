@@ -45,9 +45,14 @@ def get_access_token(code):
 	
 	r = requests.post(post_url, headers=headers,data=post)
 	auth_json = json.loads(r.text)
-	access_token = 'Bearer ' + auth_json['access_token']
-	print access_token
-	return access_token
+	try:
+		access_token = 'Bearer ' + auth_json['access_token']
+		print access_token
+		return access_token
+	except Exception as e:
+		print "Something went wrong - press back"
+		return "Something went wrong - press back"
+	
 
 
 @app.route('/callback')
