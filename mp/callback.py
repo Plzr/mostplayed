@@ -50,8 +50,8 @@ def get_access_token(code):
 		print access_token
 		return access_token
 	except Exception as e:
-		print "Something went wrong - press back"
-		return "Something went wrong - press back"
+		print "Something went wrong at the Spotify end - press back and try again"
+		return "Something went wrong at the Spotify end - press back and try again"
 	
 
 
