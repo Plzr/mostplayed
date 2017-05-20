@@ -144,10 +144,12 @@ def process():
 
 
 	#get the number of tracks the user wants to add
-	if session['num_tracks']:
-		num_tracks = session['num_tracks']
-	else:
+	if not session.get('num_tracks',None):
 		num_tracks = '25'
+	else:
+		num_tracks = session['num_tracks']
+	
+	print num_tracks
 
 	#get and add tracks to playlist
 	add_done = add_tracks(access_token,num_tracks,time_range,user_id,owner_id,playlist_id,now)
