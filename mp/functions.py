@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 ##variables
-#client_id = config.client_id
+client_id = config.client_id
 host = config.host
 user = config.user
 password = config.password
