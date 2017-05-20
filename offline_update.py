@@ -4,7 +4,7 @@ import config
 import requests
 import json
 from datetime import datetime
-from functions import db_insert,db_select,add_tracks,create_playlist,get_access_token,offline_update
+from mp.functions import db_insert,db_select,add_tracks,create_playlist,get_access_token,offline_update
 import base64
 import os
 
@@ -23,7 +23,7 @@ query_get_playlists = '''SELECT p.playlist_id,p.time_range,user.email,user.the_k
 JOIN user
 ON p.user_id=user.user_id
 WHERE user.the_key LIKE %s
-#AND user.user_id='siquick'
+AND user.user_id='siquick'
 GROUP BY p.playlist_id'''
 
 get_playlists = db_select(query_get_playlists,('Bearer%',))
