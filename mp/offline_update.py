@@ -1,6 +1,6 @@
 # from mp import app
 import sys
-import config
+#import config
 import requests
 import json
 from datetime import datetime
