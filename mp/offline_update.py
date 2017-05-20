@@ -23,9 +23,8 @@ query_get_playlists = '''SELECT p.playlist_id,p.time_range,user.email,user.the_k
 JOIN user
 ON p.user_id=user.user_id
 WHERE user.the_key LIKE %s
-AND user.user_id='siquick'
-GROUP BY p.playlist_id
-LIMIT 0,1'''
+#AND user.user_id='siquick'
+GROUP BY p.playlist_id'''
 
 get_playlists = db_select(query_get_playlists,('Bearer%',))
 
@@ -38,7 +37,7 @@ for row in data_get_playlists:
 	access_token = row[3]
 	user_id = row[4]
 	owner_id = row[4]
-	num_tracks = '2'
+	num_tracks = '50'
 	now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 	print 'Doing ' + time_range + ' for ' + user_id
