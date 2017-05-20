@@ -1,6 +1,6 @@
-# from mp import app
+from mp import app
 import sys
-#import config
+import config
 import requests
 import json
 from datetime import datetime
@@ -9,8 +9,8 @@ import base64
 import os
 
 
-# app.config.from_object('config')
-# client_id = config.client_id
+app.config.from_object('config')
+client_id = config.client_id
 
 
 #get everyone who has OAUTH details in the db AND their playlists
