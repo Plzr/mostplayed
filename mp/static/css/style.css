@@ -1,6 +1,6 @@
 .important { color: #336699; }
 
-body {background-color: #f2f2f2; color: rgba(21,21,21,0.8); font-family: 'Open Sans'}
+body {background-color: #f2f2f2; color: rgba(21,21,21,0.8); font-family: 'Futura','Helvetica Neue',sans-serif}
 
 .container {
 	    padding-right: 15px;
@@ -25,4 +25,9 @@ body {background-color: #f2f2f2; color: rgba(21,21,21,0.8); font-family: 'Open S
 	padding:3%;
 	margin-top:5%;
 	margin-bottom:5%;
+}
+
+.footer {
+   border-top: 1px solid #333;
+   padding-top:5%;
 }

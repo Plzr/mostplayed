@@ -33,6 +33,16 @@
 
     <title>{% block title %}{% endblock %} - Most Played</title>
     {% endblock %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.soundshelter.net/images/favico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://www.soundshelter.net/images/favico/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://www.soundshelter.net/images/favico/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://www.soundshelter.net/images/favico/manifest.json">
+    <link rel="mask-icon" href="https://www.soundshelter.net/images/favico/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://www.soundshelter.net/images/favico/favicon.ico">
+    <meta name="msapplication-config" content="https://www.soundshelter.net/images/favico/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -42,16 +52,28 @@
     
     <div class="background-image" style="background-image: url('https://www.soundshelter.net/images/4583945395_a427b3db70_o.jpg');"></div>
     <div class="container">
-    	<div class="col-md-3"></div>
-    	<div class="col-md-6 main_area">
-    		{% block content %}{% endblock %}
-    	</div>
-    	
-    </div>
-    <div id="footer">
-        {% block footer %}
-        <!--&copy; Copyright 2015.-->
-        {% endblock %}
+        <div class="row">
+        	<div class="col-md-3"></div>
+        	<div class="col-md-6 main_area">
+                <center><a href="https://www.soundshelter.net/?utm_medium=logo&utm_campaign=mp_logo&utm_source=mostplayed" target="_blank"><img src="https://www.soundshelter.net/images/ss_red_logo.gif" class="img-responsive" style="max-height: 70px;" alt="sound shelter logo"></a></center>
+        		{% block content %}{% endblock %}
+                <br /><br />
+                
+                <div class="footer">
+                    {% block footer %}
+                    <!--&copy; Copyright 2017.-->
+                    <h5>Sound Shelter</b> combines expert curation with a clever algorithm that offers insightful personalised music recommendations, based on your favourite record labels and producers. We'll learn your tastes and give you personalised recommendations to help you discover great new records for your collection. Sound good? <a href="https://www.soundshelter.net/?utm_medium=footer&utm_campaign=mp_footer&utm_source=mostplayed" target="_blank"><u>Start digging</u></a></h5>
+                    {% endblock %}
+                </div>
+                
+        	</div>
+            <div class="col-md-3"></div>
+        </div>
+
+        
+        
+            
+        </div>
     </div>
 </body>
 </html>
