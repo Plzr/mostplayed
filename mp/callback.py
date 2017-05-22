@@ -131,12 +131,6 @@ def process():
 			print str(r_up.status_code) + ' is the update for the playlist name'
 			
 			
-	
-
-
-	
-	
-
 	full_pl = base64.b64encode(owner_id + '/' + playlist_id)
 	the_key = base64.b64encode(user_id + playlist_id)
 	db_insert("INSERT INTO participation (user_id,playlist_id,the_key,time_range) VALUES (%s,%s,%s,%s) ON DUPLICATE KEY UPDATE the_key=VALUES(the_key)",(user_id,playlist_id,the_key,time_range))
