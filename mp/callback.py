@@ -16,6 +16,9 @@ client_id = config.client_id
 
 @app.route('/callback')
 def process():
+
+
+	
 	
 	#print request.url_root
 
