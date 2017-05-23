@@ -142,7 +142,7 @@ def process():
 
 	#get the number of tracks the user wants to add
 	if not session.get('num_tracks',None):
-		num_tracks = '25'
+		num_tracks = '50'
 	else:
 		num_tracks = session['num_tracks']
 	
