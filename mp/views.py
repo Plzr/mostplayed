@@ -38,7 +38,7 @@ def go():
 	if request.args.get('num_tracks'):
 		session['num_tracks'] = request.args.get('num_tracks')
 	else:
-		session['num_tracks'] = '25'
+		session['num_tracks'] = '50'
 
 	
 	callback_url = request.url_root + 'callback'
