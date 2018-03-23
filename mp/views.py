@@ -22,6 +22,7 @@ client_id = config.client_id
 @app.route('/index')
 def index():
 	if request.args.get('ref_code'):
+		session.clear() #to wipe the current sesh
 		ref_code = base64.b64decode(request.args.get('ref_code'))
 		session['ref_code'] = ref_code
 		print session['ref_code']
@@ -30,7 +31,7 @@ def index():
 @app.route('/go',methods=['GET', 'POST'])
 def go():
 	session['num_tracks'] = '50'
-	
+
 	if request.args.get('time_range'):
 		session['time_range'] = request.args.get('time_range')
 	else:
@@ -40,7 +41,7 @@ def go():
 	else:
 		session['num_tracks'] = '50'
 
-	
+
 	callback_url = request.url_root + 'callback'
 	base_url = 'https://accounts.spotify.com/en/authorize?client_id=' + client_id + '&response_type=code&redirect_uri=' + callback_url + '&scope=user-read-email%20playlist-read-private%20user-follow-read%20user-library-read%20user-top-read%20playlist-modify-private%20playlist-modify-public&state=34fFs29kd09'
 	return redirect(base_url,302)
