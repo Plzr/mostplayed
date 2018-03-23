@@ -27,7 +27,7 @@
     for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
     mixpanel.init("fa68d5a8c4f6d846896dd12725963c2b");</script><!-- end Mixpanel -->
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css?rnd=1') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}?rnd=1">
 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
@@ -50,7 +50,8 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <div class="background-image" style="background-image: url('https://www.soundshelter.net/images/4583945395_a427b3db70_o.jpg');"></div>
+    {# <div class="background-image" style="background-image: url('https://www.soundshelter.net/images/4583945395_a427b3db70_o.jpg');"></div> #}
+    <div class="background-image" style="background-image: url({{ url_for('static', filename='img/background.jpg') }});"></div>
     <div class="container">
         <div class="row">
         	<div class="col-md-3"></div>
