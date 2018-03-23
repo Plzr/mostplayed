@@ -33,6 +33,11 @@ body {background-color: #f2f2f2; color: #555; font-family: 'Helvetica Neue','Hel
 }
 
 a {
-    text-decoration: underline;
+    text-decoration: none;
     color:#555;
+    font-weight: 600;
+}
+
+.btn {
+    text-decoration: none;
 }

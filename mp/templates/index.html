@@ -13,7 +13,7 @@
 {% endblock %}
 {% block content %}
 <div class="">
-	
+
 		<div class="">
 	    	<!-- <h1>Spotify Bangers Playlist Generator</h1> -->
 	   		<h1>Get a Spotify playlist of your most listened to tracks</h1>
@@ -21,24 +21,24 @@
 		<div class="">
 			<br />
 	    	<form action="/go" method="get">
-	    		
-	    		
+
+
 	    			<h3>What time range would you like to use?</h3>
 	    			<br />
 	    			<h4>
-			    		
+
 							<input type="radio" name="time_range" id="inlineCheckbox1" value="short_term" checked> Last Few Weeks
 							<br />
 							<input type="radio" name="time_range" id="inlineCheckbox2" value="medium_term"> Last Few Months
 							<br />
-							<input type="radio" name="time_range" id="inlineCheckbox3" value="long_term"> Past Year and beyond
-						
+							<input type="radio" name="time_range" id="inlineCheckbox3" value="long_term"> Last few years
+
 					</h4>
 					<!-- <br />
 					<h3>How many tracks do you want?</h3>
 					<h4>
 						<input type="range" min="5" max="50" value="30" name="num_tracks" step="5" onchange="showValue(this.value)" />
-						
+
 						<span id="range">30</span>
 					</h4>
 						<script type="text/javascript">
@@ -52,10 +52,10 @@
 		    	<div class="">
 		      		<button type="submit" class="btn btn-danger" style=""><h4>Create My Playlist</h4></button>
 		      	</div>
-	      		
+
 	      	</form>
-    	
+
     </div>
-    
+
 </div>
 {% endblock %}

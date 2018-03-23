@@ -30,12 +30,16 @@ def index():
 
 @app.route('/go',methods=['GET', 'POST'])
 def go():
+	session.clear()
 	session['num_tracks'] = '50'
 
-	if request.args.get('time_range'):
-		session['time_range'] = request.args.get('time_range')
-	else:
-		session['time_range'] = 'medium_term'
+	print(request.args.get('time_range'))
+	session['time_range'] = request.args.get('time_range')
+
+	# if request.args.get('time_range'):
+	# 	session['time_range'] = request.args.get('time_range')
+	# else:
+	# 	session['time_range'] = 'medium_term'
 	if request.args.get('num_tracks'):
 		session['num_tracks'] = request.args.get('num_tracks')
 	else:

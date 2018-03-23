@@ -18,8 +18,8 @@ client_id = config.client_id
 def process():
 
 
-	
-	
+
+
 	#print request.url_root
 
 	if request.args.get('error'):
@@ -27,16 +27,16 @@ def process():
 	code = request.args.get('code')
 	state = request.args.get('state')
 
-	
+
 	access_token = get_access_token(code)
 
-	
+
 	################get my details - create the user if needed
 	print 'Getting the users details'
 	me_headers = {'Authorization':access_token}
 	me_post = {}
 	me_url = 'https://api.spotify.com/v1/me'
-	
+
 	r_me = requests.get('https://api.spotify.com/v1/me',headers=me_headers)
 	r_me_json = json.loads(r_me.text)
 
@@ -50,7 +50,7 @@ def process():
 		referall_code = ''
 
 	the_key = base64.b64encode(user_id + referall_code)
-	
+
 	try:
 		db_insert("INSERT INTO user (user_id,email,join_date,last_visit,source,ref_code,the_key) VALUES (%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE last_visit=VALUES(last_visit), the_key=VALUES(the_key);",(user_id,email,now,now,'new',referall_code,access_token))
 		print "Inserted user"
@@ -73,7 +73,7 @@ def process():
 	else:
 		# check_pl = db_select("SELECT playlist_id FROM participation WHERE user_id=%s",(user_id,))
 		# data_check_pl = check_pl.fetchall()
-	
+
 		# for row in data_check_pl:
 		# 	playlist_id = str(row[0])
 		# 	print playlist_id
@@ -119,7 +119,7 @@ def process():
 				playlist_id = row[1]
 
 			full_pl = base64.b64encode(owner_id + '/' + playlist_id)
-			
+
 			print full_pl
 			print "pl got"
 
@@ -132,8 +132,8 @@ def process():
 			print up_headers
 			print r_up
 			print str(r_up.status_code) + ' is the update for the playlist name'
-			
-			
+
+
 	full_pl = base64.b64encode(owner_id + '/' + playlist_id)
 	the_key = base64.b64encode(user_id + playlist_id)
 	db_insert("INSERT INTO participation (user_id,playlist_id,the_key,time_range) VALUES (%s,%s,%s,%s) ON DUPLICATE KEY UPDATE the_key=VALUES(the_key)",(user_id,playlist_id,the_key,time_range))
@@ -145,7 +145,7 @@ def process():
 		num_tracks = '50'
 	else:
 		num_tracks = session['num_tracks']
-	
+
 	print num_tracks
 
 	#get and add tracks to playlist
@@ -170,6 +170,6 @@ def process():
 	if 'ref_code' in session:
 		session.pop('ref_code', None)
 
-	
+
 	return render_template('done.html',pl_url=pl_public_url,tracks=tracks,ref_code=full_pl,images=image_urls,title=title)
 
