@@ -21,6 +21,10 @@ client_id = config.client_id
 @app.route('/')
 @app.route('/index')
 def index():
+	session.pop('time_range',None)
+	session.pop('ref_code',None)
+	session.pop('num_tracks',None)
+
 	if request.args.get('ref_code'):
 		session.clear() #to wipe the current sesh
 		ref_code = base64.b64decode(request.args.get('ref_code'))
@@ -30,16 +34,17 @@ def index():
 
 @app.route('/go',methods=['GET', 'POST'])
 def go():
-	session.clear()
-	session['num_tracks'] = '50'
 
-	print(request.args.get('time_range'))
+	session['num_tracks'] = '50'
 	session['time_range'] = request.args.get('time_range')
 
-	# if request.args.get('time_range'):
-	# 	session['time_range'] = request.args.get('time_range')
-	# else:
-	# 	session['time_range'] = 'medium_term'
+	print(session['time_range'])
+
+
+	if request.args.get('time_range'):
+		session['time_range'] = request.args.get('time_range')
+	else:
+		session['time_range'] = 'medium_term'
 	if request.args.get('num_tracks'):
 		session['num_tracks'] = request.args.get('num_tracks')
 	else:
