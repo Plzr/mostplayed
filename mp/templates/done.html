@@ -11,17 +11,33 @@
 
     <h1>Done!</h1>
     <br />
-    <a role="button" class="btn btn-danger" href="{{pl_url}}" target="_blank" style="text"><h4>Listen To Your Playlist</h4></a>
-    <a role="button" class="btn btn-success" href="/" target="_self" style=""><h4>Do Another One</h4></a>
+    <div class="btn-group" role="group">
+        <center>
+            <a role="button" class="btn btn-danger spotify_button" id="" href="{{pl_url}}" target="_blank" style="margin-right: 10px"><h4><i class="fab fa-spotify"></i> Listen To Your Playlist</h4></a>
+            {# <a role="button" class="btn btn-success" href="/" target="_self" style=""><h4>Do Another One</h4></a> #}
+            <a role="button" class="btn btn-danger facebook_button" id="" href="https://www.facebook.com/sharer/sharer.php?u={{pl_url}}" target="_blank" style=""><h4><i class="fab fa-facebook"></i> Share your playlist</h4></a>
+        </center>
+    </div>
+    <div class="btn-group" role="group">
+        <center>
+
+        </center>
+    </div>
+
     <br /><br />
     <!-- <h3>Give this code to your friends http://mp.soundshelter.net/?ref_code={{ref_code}}</h3> -->
     <h3>We added the following tracks to <a href="{{pl_url}}" target="_blank">{{title}}</a></h3><br />
     {% for image in images %}
-    	<a href="{{pl_url}}" target="_blank"><img src="{{image}}" heigh=100 width=100 /></a>
+    	<a href="{{pl_url}}" target="_blank"><img src="{{image}}" height=100 width=100 /></a>
     {% endfor %}
-    <br /><br /><br />
-    <a role="button" class="btn btn-danger" href="{{pl_url}}" target="_blank" style=""><h4>Listen To Your Playlist</h4></a>
-    <a role="button" class="btn btn-success" href="/" target="_self" style=""><h4>Do Another One</h4></a>
+    <br /><br />
+    <div class="btn-group" role="group">
+        <center>
+            <a role="button" class="btn btn-danger spotify_button" id="" href="{{pl_url}}" target="_blank" style="margin-right: 10px"><h4><i class="fab fa-spotify"></i> Listen To Your Playlist</h4></a>
+            {# <a role="button" class="btn btn-success" href="/" target="_self" style=""><h4>Do Another One</h4></a> #}
+            <a role="button" class="btn btn-danger facebook_button" id="" href="https://www.facebook.com/sharer/sharer.php?u={{pl_url}}" target="_blank" style=""><h4><i class="fab fa-facebook"></i> Share your playlist</h4></a>
+        </center>
+    </div>
 
 
 {% endblock %}

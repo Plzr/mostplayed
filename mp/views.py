@@ -29,7 +29,7 @@ def index():
 		session.clear() #to wipe the current sesh
 		ref_code = base64.b64decode(request.args.get('ref_code'))
 		session['ref_code'] = ref_code
-		print session['ref_code']
+		print(session['ref_code'])
 	return render_template('index.html')
 
 @app.route('/go',methods=['GET', 'POST'])

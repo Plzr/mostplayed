@@ -125,7 +125,7 @@ def process():
 
 			#update the name of the playlist if it exists
 			up_headers = {'Authorization':access_token,'Accept':'application/json','Content-Type':'application/json'}
-			up_post = {'name':title,'description':'created at http://mp.soundshelter.net'}
+			up_post = {'name':title,'description':'Created at mp.soundshelter.net'}
 			up_url = 'https://api.spotify.com/v1/users/' + owner_id + '/playlists/' + playlist_id
 			r_up = requests.put(up_url,headers=up_headers,data=json.dumps(up_post))
 			print up_url
