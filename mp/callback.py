@@ -58,6 +58,11 @@ def process():
 		print e
 
 
+	#####get the time range of the request
+	time_range = request.cookies.get('time_range')
+	print(time_range + ' from the cookie')
+
+
 	###check if user has a pl in the DB already
 		###yes = get pl id
 		###no = create a new playlist
@@ -84,10 +89,7 @@ def process():
 		#now create a collaborative playlist
 		##############get the users top tracks
 
-		if 'time_range' in session:
-			time_range = session['time_range']
-		else:
-			time_range = 'short_term'
+
 
 		if time_range =='short_term':
 			time_range_title = 'This Month'
