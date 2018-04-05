@@ -88,6 +88,8 @@ def process():
 		else:
 			time_range = 'short_term'
 
+		session.pop('time_range',None) #clear the session
+
 		if time_range =='short_term':
 			time_range_title = 'This Month'
 		elif time_range=='medium_term':

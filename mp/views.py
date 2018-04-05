@@ -45,14 +45,14 @@ def go():
 	print(session['time_range'])
 
 
-	if request.args.get('time_range'):
-		session['time_range'] = request.args.get('time_range')
-	else:
-		session['time_range'] = 'medium_term'
-	if request.args.get('num_tracks'):
-		session['num_tracks'] = request.args.get('num_tracks')
-	else:
-		session['num_tracks'] = '50'
+	# if request.args.get('time_range'):
+	# 	session['time_range'] = request.args.get('time_range')
+	# else:
+	# 	session['time_range'] = 'medium_term'
+	# if request.args.get('num_tracks'):
+	# 	session['num_tracks'] = request.args.get('num_tracks')
+	# else:
+	# 	session['num_tracks'] = '50'
 
 
 	callback_url = request.url_root + 'callback'
