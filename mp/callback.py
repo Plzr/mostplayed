@@ -30,7 +30,6 @@ def process():
 
 	access_token = get_access_token(code)
 
-
 	################get my details - create the user if needed
 	print 'Getting the users details'
 	me_headers = {'Authorization':access_token}
