@@ -18,7 +18,7 @@ client_id = config.client_id
 def process():
 
 
-
+	print(session['time_range'] + ' is the time range in the callback')
 
 	#print request.url_root
 
@@ -88,7 +88,7 @@ def process():
 		else:
 			time_range = 'short_term'
 
-		# session.pop('time_range',None) #clear the session
+		print(time_range + ' is the time range in the callback on 91')
 
 		if time_range =='short_term':
 			time_range_title = 'This Month'
@@ -148,6 +148,9 @@ def process():
 		num_tracks = session['num_tracks']
 
 	print num_tracks
+
+	print(session['time_range'] + ' is the time range in the callback on 152')
+
 
 	#get and add tracks to playlist
 	add_done = add_tracks(access_token,num_tracks,time_range,user_id,owner_id,playlist_id,now)

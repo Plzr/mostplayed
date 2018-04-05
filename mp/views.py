@@ -38,10 +38,10 @@ def go():
 	# session.pop('time_range',None)
 	# session.pop('ref_code',None)
 	# session.pop('num_tracks',None)
-
+	session.clear()
 	session['num_tracks'] = '50'
 	session['time_range'] = request.args.get('time_range')
-	session.modified = True
+
 
 	print(session['time_range'])
 
