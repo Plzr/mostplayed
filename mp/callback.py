@@ -94,7 +94,7 @@ def process():
 		elif time_range=='medium_term':
 			time_range_title = 'Last Few Months'
 		else:
-			time_range_title = 'This Year and Beyond'
+			time_range_title = 'Last Few Years'
 		title = 'Most Played: ' + time_range_title
 
 		#check that there isn't a playlist already for this user on this time range
