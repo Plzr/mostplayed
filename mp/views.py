@@ -35,6 +35,10 @@ def index():
 @app.route('/go',methods=['GET', 'POST'])
 def go():
 
+	session.pop('time_range',None)
+	session.pop('ref_code',None)
+	session.pop('num_tracks',None)
+
 	session['num_tracks'] = '50'
 	session['time_range'] = request.args.get('time_range')
 
