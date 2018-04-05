@@ -18,7 +18,7 @@ client_id = config.client_id
 def process():
 
 
-
+	print(session['time_range'] + ' is the time range in the callback')
 
 	#print request.url_root
 
@@ -29,7 +29,6 @@ def process():
 
 
 	access_token = get_access_token(code)
-
 
 	################get my details - create the user if needed
 	print 'Getting the users details'
@@ -89,12 +88,14 @@ def process():
 		else:
 			time_range = 'short_term'
 
+		print(time_range + ' is the time range in the callback on 91')
+
 		if time_range =='short_term':
 			time_range_title = 'This Month'
 		elif time_range=='medium_term':
 			time_range_title = 'Last Few Months'
 		else:
-			time_range_title = 'This Year and Beyond'
+			time_range_title = 'Last Few Years'
 		title = 'Most Played: ' + time_range_title
 
 		#check that there isn't a playlist already for this user on this time range
@@ -147,6 +148,9 @@ def process():
 		num_tracks = session['num_tracks']
 
 	print num_tracks
+
+	print(session['time_range'] + ' is the time range in the callback on 152')
+
 
 	#get and add tracks to playlist
 	add_done = add_tracks(access_token,num_tracks,time_range,user_id,owner_id,playlist_id,now)
