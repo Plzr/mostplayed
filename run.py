@@ -1,3 +1,5 @@
 #!flask/bin/python
 from mp import app
-app.run(debug=True)
+import config
+
+app.run(debug=config.debug)

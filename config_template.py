@@ -11,7 +11,7 @@ database = ''
 host = ''
 
 
-
+debug = False # or true if dev mode
 
 
 
