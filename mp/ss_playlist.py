@@ -1,21 +1,22 @@
 import requests
 import json
-import hashlib #used to generate the key for the insert
+import hashlib  # used to generate the key for the insert
 import base64
 
 
 def req_auth():
-    #request authorization
+    # request authorization
     auth_code = base64.b64encode('2b9b835a9d2d45eab79778233e9142e4:6783d4b5790a4f5aaa94b863c30fc215')
     headers = {'Authorization': 'Basic ' + auth_code}
     auth_url = 'https://accounts.spotify.com/api/token'
-    body = {'grant_type':'client_credentials'}
+    body = {'grant_type': 'client_credentials'}
 
     r = requests.post(auth_url, data=body, headers=headers)
     r_json = json.loads(r.text)
     return r_json['access_token']
 
-#gets a list of the good records that are on Spotify
+
+# gets a list of the good records that are on Spotify
 def get_records():
     query = db_select('''SELECT x.spotify_url,x.date,x.id,x.all_artists,x.title,sum(num) as total FROM
                 (SELECT releases.*,COUNT(listens.release_id) * 5 as num
@@ -45,13 +46,13 @@ def get_records():
                 AND x.genre IN ('House','Techno','Disco','Bass')
                 GROUP by x.id
                 ORDER BY total DESC
-                LIMIT 0,10''',())
+                LIMIT 0,10''', ())
 
     get_data = query.fetchall()
     for row in get_data:
-          print(row[0],row[3],row[4])
+        print(row[0], row[3], row[4])
 
-          #add_done = add_tracks(access_token,num_tracks,time_range,user_id,owner_id,playlist_id,now)
+        # add_done = add_tracks(access_token,num_tracks,time_range,user_id,owner_id,playlist_id,now)
 
 
 access_token = get_access_token(code)

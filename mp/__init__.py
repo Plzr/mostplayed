@@ -1,9 +1,9 @@
 from flask import Flask
 import os, base64
+import config
 
 app = Flask(__name__)
 from mp import callback,views
 
-app.secret_key = base64.b64encode(os.urandom(24))
-#print str(app.secret_key)
+app.secret_key = config.secret_key
 
